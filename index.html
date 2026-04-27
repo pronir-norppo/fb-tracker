@@ -8,528 +8,182 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0D1B2A;--navy2:#14243A;
+  --navy:#0D1B2A;--navy2:#14243A;--navy3:#1A2E45;
   --blue:#1A6FBF;--blue2:#155FA0;
-  --green:#0F6E56;--green2:#085040;--green-bg:#E1F5EE;--green-mid:#9FE1CB;
-  --gray1:#F8F9FB;--gray2:#F1EFE8;--gray3:#D3D1C7;--gray4:#888780;
-  --text:#1A1A1A;--text2:#5F5E5A;--text3:#888780;
-  --border:rgba(0,0,0,0.09);--border-w:rgba(255,255,255,0.08);
-  --radius:10px;--font:'DM Sans',sans-serif;
+  --green:#0F6E56;--green-mid:#9FE1CB;
+  --border-w:rgba(255,255,255,0.07);
+  --font:'DM Sans',sans-serif;
 }
-html,body{height:100%;font-family:var(--font);background:var(--gray1);color:var(--text);font-size:14px;line-height:1.5;overflow:hidden}
-.shell{display:flex;flex-direction:column;height:100vh}
+html,body{height:100%;font-family:var(--font);background:var(--navy);overflow:hidden;font-size:14px}
 
 /* TOPBAR */
-.topbar{height:52px;background:var(--navy);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;z-index:100}
-.tb-brand{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.tb-icon{width:28px;height:28px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center}
-.tb-icon svg{width:15px;height:15px;fill:#fff}
+.topbar{
+  height:46px;background:var(--navy2);border-bottom:1px solid var(--border-w);
+  display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0;
+}
+.tb-icon{width:26px;height:26px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.tb-icon svg{width:14px;height:14px;fill:#fff}
 .tb-title{color:#fff;font-size:13px;font-weight:600;letter-spacing:-.2px}
-.tb-sep{width:1px;height:22px;background:var(--border-w);flex-shrink:0}
-.tb-steps{display:flex;align-items:center;gap:3px;flex:1}
-.tbs{display:flex;align-items:center;gap:7px;padding:5px 11px;border-radius:6px;font-size:12px;font-weight:500;color:rgba(255,255,255,.35);transition:.2s}
-.tbs-num{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;transition:.2s}
-.tbs.active{color:#fff;background:rgba(26,111,191,.28)}
-.tbs.active .tbs-num{background:var(--blue)}
-.tbs.done{color:rgba(255,255,255,.5)}
-.tbs.done .tbs-num{background:var(--green)}
-.tbs-arr{color:rgba(255,255,255,.18);font-size:12px;margin:0 1px}
-.tb-pill{margin-left:auto;display:flex;align-items:center;gap:6px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:500;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);flex-shrink:0;transition:.3s}
-.tb-pill.green{background:rgba(15,110,86,.3);color:var(--green-mid)}
-.tb-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:blink 1.4s infinite}
-.tb-pill.green .tb-dot{animation:none}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.tb-sep{width:1px;height:20px;background:var(--border-w)}
+.tb-hint{font-size:11px;color:rgba(255,255,255,.35)}
 
-.body{flex:1;overflow:hidden;display:flex}
+/* WORKSPACE */
+.workspace{display:flex;height:calc(100vh - 46px)}
 
-/* PHASE 1 */
-#p1{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
-.hero{background:var(--navy2);border-bottom:1px solid var(--border-w);padding:16px 28px;display:flex;align-items:center;gap:16px;flex-shrink:0}
-.hero-left{flex:1}
-.hero-left h2{color:#fff;font-size:15px;font-weight:600;margin-bottom:2px}
-.hero-left p{color:rgba(255,255,255,.5);font-size:12px}
-.scroll{flex:1;overflow-y:auto;padding:20px 28px 16px}
-.sec-label{font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+/* LEFT */
+.left{flex:1;display:flex;flex-direction:column;border-right:1px solid var(--border-w);min-width:0}
+.frame-bar{
+  height:32px;background:var(--navy3);border-bottom:1px solid var(--border-w);
+  display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0;
+}
+.frame-bar span{color:rgba(255,255,255,.45);font-size:11px}
+.fdot{width:7px;height:7px;border-radius:50%;background:#34C759;flex-shrink:0}
+.reload-btn{margin-left:auto;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:11px;font-family:var(--font);padding:3px 9px;border-radius:4px;cursor:pointer}
+.reload-btn:hover{background:rgba(255,255,255,.13);color:#fff}
+#hercules-frame{flex:1;border:none;width:100%;background:#f4f6f8}
 
-/* Task cards */
-.task-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:14px;transition:box-shadow .15s,border-color .2s;cursor:pointer}
-.task-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.07)}
-.task-card.checked{border-color:var(--green-mid);background:var(--green-bg)}
-.tcb{width:22px;height:22px;border-radius:6px;border:2px solid var(--gray3);background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.2s;margin-top:1px}
-.task-card.checked .tcb{background:var(--green);border-color:var(--green)}
-.tcb svg{opacity:0;transition:.15s}
-.task-card.checked .tcb svg{opacity:1}
-.task-body{flex:1;min-width:0}
-.task-title{font-size:13px;font-weight:600;line-height:1.4;color:var(--text);margin-bottom:5px}
-.task-card.checked .task-title{color:var(--green2)}
-.task-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.tmeta{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text3)}
-.tmeta svg{width:11px;height:11px;flex-shrink:0}
-.open-btn{margin-left:auto;flex-shrink:0;align-self:center}
+/* RIGHT */
+.right{width:380px;flex-shrink:0;display:flex;flex-direction:column;background:#ffffff;overflow:hidden}
 
-/* Buttons */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:7px;font-size:12px;font-weight:500;font-family:var(--font);cursor:pointer;border:none;transition:.15s;white-space:nowrap}
-.btn-ghost{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1)}
-.btn-ghost:hover{background:rgba(255,255,255,.14);color:#fff}
-.btn-blue{background:var(--blue);color:#fff}
-.btn-blue:hover{background:var(--blue2)}
-.btn-green{background:var(--green);color:#fff}
-.btn-green:hover:not(:disabled){background:var(--green2)}
-.btn-green:disabled{background:var(--gray3);color:var(--gray4);cursor:not-allowed}
-.btn-sm{padding:5px 11px;font-size:11px}
-.btn-link{background:none;border:none;color:var(--blue);font-size:12px;font-family:var(--font);cursor:pointer;padding:0;text-decoration:underline}
-.btn-outline-dark{background:transparent;border:1px solid var(--border);color:var(--text2)}
-.btn-outline-dark:hover{background:var(--gray2);color:var(--text)}
+/* Setup panel — light */
+.setup-panel{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;height:100%;padding:32px;text-align:center;background:#ffffff;
+}
+.setup-icon{
+  width:54px;height:54px;background:#EBF4FF;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.setup-icon svg{width:26px;height:26px;stroke:var(--blue);fill:none;stroke-width:1.8}
+.setup-title{font-size:16px;font-weight:600;color:#1A1A1A}
+.setup-sub{font-size:13px;color:#5F5E5A;max-width:280px;line-height:1.65}
+.setup-input-row{display:flex;gap:7px;width:100%;max-width:310px}
+.setup-input{
+  flex:1;padding:9px 11px;border:1.5px solid #D3D1C7;border-radius:7px;
+  font-size:12px;font-family:var(--font);outline:none;
+  background:#fff;color:#1A1A1A;transition:border .15s;min-width:0;
+}
+.setup-input::placeholder{color:#aaa;font-size:11px}
+.setup-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,111,191,.1)}
+.save-btn{
+  padding:9px 16px;background:var(--blue);color:#fff;border:none;
+  border-radius:7px;font-size:12px;font-weight:500;font-family:var(--font);
+  cursor:pointer;transition:.15s;flex-shrink:0;
+}
+.save-btn:hover{background:var(--blue2)}
+.setup-note{font-size:11px;color:#888780}
 
-/* Add panel */
-.add-panel{background:#fff;border:1px dashed var(--gray3);border-radius:var(--radius);padding:13px 16px;margin-bottom:8px;display:flex;gap:10px;align-items:center}
-.add-input{flex:1;border:1px solid var(--border);border-radius:6px;padding:7px 11px;font-size:13px;font-family:var(--font);outline:none;color:var(--text);transition:border .15s}
-.add-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,111,191,.1)}
-
-/* Progress & footer */
-.progress-wrap{margin:0 28px;padding:10px 0;border-top:1px solid var(--border);flex-shrink:0}
-.prow{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
-.plabel{font-size:11px;color:var(--text3)}
-.pcount{font-size:11px;font-weight:600;color:var(--text)}
-.pbar{height:5px;background:var(--gray2);border-radius:3px;overflow:hidden}
-.pbar-fill{height:100%;background:var(--green);border-radius:3px;transition:width .4s ease}
-.unlock-footer{padding:12px 28px;border-top:1px solid var(--border);background:#fff;display:flex;align-items:center;gap:14px;flex-shrink:0}
-.unlock-msg{font-size:12px;color:var(--text3);flex:1}
-.unlock-msg strong{color:var(--text)}
-
-/* PHASE 2 */
-#p2{display:none;flex-direction:column;width:100%;height:100%}
-#p2.show{display:flex}
-.p2-header{background:var(--navy2);border-bottom:1px solid var(--border-w);padding:14px 24px;display:flex;align-items:center;gap:12px;flex-shrink:0}
-.p2-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:rgba(15,110,86,.25);border:1px solid rgba(159,225,203,.25);border-radius:20px;font-size:11px;font-weight:500;color:var(--green-mid)}
-.p2-who{color:rgba(255,255,255,.5);font-size:12px}
-.p2-who span{color:#fff;font-weight:500}
-.p2-body{flex:1;overflow-y:auto;padding:28px;display:flex;justify-content:center}
-
-/* Gate card */
-.gate{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;width:100%;max-width:440px;height:fit-content;box-shadow:0 4px 24px rgba(0,0,0,.07)}
-.gate-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:var(--green-bg);border-radius:20px;font-size:11px;font-weight:500;color:var(--green);margin-bottom:14px}
-.gate h2{font-size:17px;font-weight:600;margin-bottom:4px}
-.gate p{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.6}
-.fl{display:block;font-size:12px;font-weight:500;margin-bottom:5px}
-.fi{width:100%;padding:9px 12px;border:1.5px solid var(--gray3);border-radius:7px;font-size:13px;font-family:var(--font);outline:none;color:var(--text);margin-bottom:11px;transition:border .15s}
-.fi:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,111,191,.1)}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.gate-submit{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;font-family:var(--font);cursor:pointer;transition:.15s;margin-top:2px}
-.gate-submit:hover{background:var(--blue2)}
-.gate-note{font-size:11px;color:var(--text3);text-align:center;margin-top:10px;line-height:1.6}
-
-/* Form wrap */
-.form-wrap{flex:1;overflow:hidden;display:none;flex-direction:column}
-.form-wrap.show{display:flex}
-#gform-frame{width:100%;height:100%;border:none;background:#f4f6f8;display:none}
-
-/* No-form placeholder */
-.no-form{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:32px;background:var(--gray1)}
-.no-form-icon{width:60px;height:60px;background:var(--green-bg);border-radius:14px;display:flex;align-items:center;justify-content:center}
-.no-form h3{font-size:16px;font-weight:600}
-.no-form p{font-size:13px;color:var(--text2);text-align:center;max-width:380px;line-height:1.65}
-.url-row{display:flex;gap:8px;width:100%;max-width:440px}
-.url-input{flex:1;padding:9px 13px;border:1.5px solid var(--gray3);border-radius:7px;font-size:13px;font-family:var(--font);outline:none;color:var(--text);transition:border .15s}
-.url-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,111,191,.1)}
-.no-form-note{font-size:11px;color:var(--text3)}
-.setup-box{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;max-width:440px;width:100%}
-.setup-box h4{font-size:12px;font-weight:600;margin-bottom:8px}
-.setup-box ol{font-size:12px;color:var(--text2);padding-left:16px;line-height:2.1}
-code{background:var(--gray2);padding:1px 5px;border-radius:3px;font-size:11px;font-family:monospace}
-
-/* Transition */
-.ts{position:fixed;inset:0;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:999;opacity:0;pointer-events:none;transition:opacity .3s}
-.ts.on{opacity:1;pointer-events:all}
-.ts-icon{width:56px;height:56px;background:var(--green);border-radius:14px;display:flex;align-items:center;justify-content:center}
-.ts-title{color:#fff;font-size:19px;font-weight:600}
-.ts-sub{color:rgba(255,255,255,.45);font-size:13px}
-.ts-bar{width:220px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-top:6px}
-.ts-fill{height:100%;background:var(--green-mid);border-radius:2px;width:0;transition:width 1.6s ease}
+/* Form panel */
+.form-panel{display:none;flex-direction:column;height:100%}
+.form-panel.show{display:flex}
+.form-bar{
+  height:34px;background:#F4F6F8;border-bottom:1px solid #E5E5E5;
+  display:flex;align-items:center;padding:0 12px;gap:7px;flex-shrink:0;
+}
+.form-bar-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+.form-bar span{font-size:11px;color:#5F5E5A;font-weight:500}
+.change-btn{
+  margin-left:auto;background:none;border:none;color:#888780;
+  font-size:11px;font-family:var(--font);cursor:pointer;text-decoration:underline;padding:0;
+}
+.change-btn:hover{color:var(--blue)}
+#gform-frame{flex:1;border:none;width:100%;background:#fff}
 
 /* Toast */
-#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(16px);background:#1A1A1A;color:#fff;padding:9px 17px;border-radius:8px;font-size:12px;font-weight:500;opacity:0;transition:.28s;z-index:9999;pointer-events:none;white-space:nowrap}
+#toast{
+  position:fixed;bottom:16px;left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:#1A1A1A;color:#fff;padding:8px 16px;border-radius:7px;
+  font-size:12px;font-weight:500;opacity:0;transition:.25s;
+  z-index:9999;pointer-events:none;white-space:nowrap;
+}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--gray3);border-radius:3px}
 </style>
 </head>
 <body>
-<div class="shell">
 
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="tb-brand">
-      <div class="tb-icon">
-        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </div>
-      <span class="tb-title">FB Compliance Portal — NOrPPO CIRAS</span>
+<!-- TOPBAR -->
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="tb-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+    <span class="tb-title">FB Compliance Portal — NOrPPO CIRAS</span>
+  </div>
+  <div class="tb-sep"></div>
+  <span class="tb-hint">Complete tasks in Hercules · Submit compliance form on the right</span>
+</header>
+
+<!-- WORKSPACE -->
+<div class="workspace">
+
+  <!-- LEFT: Hercules -->
+  <div class="left">
+    <div class="frame-bar">
+      <span class="fdot"></span>
+      <span>pronir-leevic-pis.onhercules.app</span>
+      <button class="reload-btn" onclick="document.getElementById('hercules-frame').src=document.getElementById('hercules-frame').src">↺ Reload</button>
     </div>
-    <div class="tb-sep"></div>
-    <div class="tb-steps">
-      <div class="tbs active" id="st1"><div class="tbs-num">1</div>Task Checklist</div>
-      <span class="tbs-arr">›</span>
-      <div class="tbs" id="st2"><div class="tbs-num">2</div>Submission Form</div>
-    </div>
-    <div class="tb-pill" id="tb-pill">
-      <span class="tb-dot"></span>
-      <span id="pill-txt">Tasks pending</span>
-    </div>
-  </header>
+    <iframe id="hercules-frame" src="https://pronir-leevic-pis.onhercules.app/" title="Hercules FB Tracker" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation-by-user-activation"></iframe>
+  </div>
 
-  <div class="body">
+  <!-- RIGHT: Google Form -->
+  <div class="right">
 
-    <!-- ══ PHASE 1 ══ -->
-    <div id="p1">
-      <div class="hero">
-        <div class="hero-left">
-          <h2>Today's Facebook Tasks</h2>
-          <p>Open Hercules, complete each task, then tick it off here. Submission form unlocks when all are done.</p>
-        </div>
-        <button class="btn btn-ghost" onclick="openHercules()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Open Hercules App ↗
-        </button>
+    <!-- No URL yet -->
+    <div class="setup-panel" id="setup-panel">
+      <div class="setup-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       </div>
-
-      <div class="scroll">
-        <div class="sec-label">Active Tasks — tick each after completing in Hercules</div>
-        <div id="task-list"></div>
-
-        <div class="add-panel" id="add-panel" style="display:none">
-          <input class="add-input" id="add-input" placeholder="Paste new task title here..." />
-          <button class="btn btn-blue btn-sm" onclick="addTask()">+ Add</button>
-        </div>
-        <p style="font-size:11px;color:var(--text3);margin-top:4px">
-          <button class="btn-link" onclick="toggleAdd()">+ Add custom task</button>
-          &nbsp;·&nbsp;
-          <button class="btn-link" onclick="resetTasks()">Reset checklist</button>
-        </p>
+      <div class="setup-title">Link Your Google Form</div>
+      <div class="setup-sub">Paste your Google Form URL below and press Save — the form will open right here.</div>
+      <div class="setup-input-row">
+        <input class="setup-input" id="url-input" placeholder="https://docs.google.com/forms/..." />
+        <button class="save-btn" onclick="saveUrl()">Save</button>
       </div>
-
-      <div class="progress-wrap">
-        <div class="prow">
-          <span class="plabel">Progress</span>
-          <span class="pcount" id="prog-count">0 / 0 completed</span>
-        </div>
-        <div class="pbar"><div class="pbar-fill" id="pbar-fill" style="width:0%"></div></div>
-      </div>
-      <div class="unlock-footer">
-        <div class="unlock-msg" id="unlock-msg"><strong>Tick all tasks above</strong> to unlock the submission form.</div>
-        <button class="btn btn-green" id="unlock-btn" disabled onclick="goP2()">
-          Proceed to Submission Form →
-        </button>
-      </div>
+      <div class="setup-note">Saved in this browser. One-time setup.</div>
     </div>
 
-    <!-- ══ PHASE 2 ══ -->
-    <div id="p2">
-      <div class="p2-header">
-        <div class="p2-badge">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          All tasks done
-        </div>
-        <div class="p2-who">Submitting as: <span id="p2-name">—</span></div>
-        <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="backToP1()">← Back to Tasks</button>
+    <!-- Form loaded -->
+    <div class="form-panel" id="form-panel">
+      <div class="form-bar">
+        <span class="form-bar-dot"></span>
+        <span>Google Form linked</span>
+        <button class="change-btn" onclick="changeUrl()">change URL</button>
       </div>
-
-      <!-- Name gate -->
-      <div class="p2-body" id="name-gate">
-        <div class="gate">
-          <div class="gate-badge">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            All tasks completed
-          </div>
-          <h2>Submit Your Compliance Report</h2>
-          <p>Enter your details below. Your name and unit will be automatically pre-filled in the Google Form, and logged in the tracking spreadsheet.</p>
-
-          <label class="fl">Full Name <span style="color:#A32D2D">*</span></label>
-          <input class="fi" id="g-name" placeholder="e.g. Juan Dela Cruz" autocomplete="name" />
-
-          <div class="frow">
-            <div>
-              <label class="fl">Rank / Position</label>
-              <input class="fi" id="g-rank" placeholder="e.g. PO1" />
-            </div>
-            <div>
-              <label class="fl">Unit</label>
-              <input class="fi" id="g-unit" value="NOrPPO CIRAS" />
-            </div>
-          </div>
-
-          <button class="gate-submit" onclick="proceedToForm()">Open Compliance Form →</button>
-          <div class="gate-note">Your name is auto-filled in the Google Form.<br>Each personnel submits individually.</div>
-        </div>
-      </div>
-
-      <!-- Form area -->
-      <div class="form-wrap" id="form-wrap">
-        <div class="no-form" id="no-form">
-          <div class="no-form-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </div>
-          <h3>Google Form Not Yet Linked</h3>
-          <p>Paste your Google Form URL below. Personnel name, unit, and date will be auto-populated on every individual submission.</p>
-          <div class="url-row">
-            <input class="url-input" id="url-input" placeholder="https://docs.google.com/forms/d/e/.../viewform" />
-            <button class="btn btn-blue" onclick="saveAndLoadForm()">Link Form</button>
-          </div>
-          <div class="no-form-note">Saved in this browser permanently — one-time setup only.</div>
-          <div class="setup-box">
-            <h4>How to enable name auto-fill in your Google Form</h4>
-            <ol>
-              <li>In your Google Form, add fields: <strong>Name</strong>, <strong>Unit</strong>, <strong>Date</strong></li>
-              <li>Open the live form URL in Chrome → right-click a field → <em>Inspect</em></li>
-              <li>Find the <code>name</code> attribute, e.g. <code>entry.123456789</code></li>
-              <li>In this HTML file, find the <code>ENTRY_NAME</code>, <code>ENTRY_UNIT</code>, <code>ENTRY_DATE</code> lines and replace the placeholder IDs</li>
-              <li>Google Sheets auto-captures all responses — no extra setup needed</li>
-            </ol>
-          </div>
-        </div>
-        <iframe id="gform-frame" title="Compliance Submission Form"></iframe>
-      </div>
+      <iframe id="gform-frame" title="Compliance Submission Form" allowfullscreen></iframe>
     </div>
 
   </div>
-</div>
-
-<!-- Transition overlay -->
-<div class="ts" id="ts">
-  <div class="ts-icon">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-  </div>
-  <div class="ts-title">Loading Submission Form</div>
-  <div class="ts-sub">All tasks verified — preparing your compliance form...</div>
-  <div class="ts-bar"><div class="ts-fill" id="ts-fill"></div></div>
 </div>
 
 <div id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════════════
-   CONFIG
-   When you have your Google Form:
-   1. Paste the URL into the portal (saved automatically)
-   2. Replace the ENTRY_* values below with real entry IDs
-      from your form (inspect the form HTML to find them)
-══════════════════════════════════════════════ */
-const CFG = {
-  HERCULES: 'https://pronir-leevic-pis.onhercules.app/',
-  FORM_URL:  localStorage.getItem('gform_url') || '',
-  ENTRY_NAME: 'entry.000000001',   // ← replace with real ID
-  ENTRY_UNIT: 'entry.000000002',   // ← replace with real ID
-  ENTRY_DATE: 'entry.000000003',   // ← replace with real ID
-};
+const KEY = 'gform_url';
 
-/* ══════════════════════════════════════════════
-   DEFAULT TASKS
-   Update this list whenever HQ adds new tasks.
-   Tasks auto-reset each new calendar day.
-══════════════════════════════════════════════ */
-const DEFAULT_TASKS = [
-  { id:1, title:'JOINT OPS NET 3 DRUG SUSPECTS, SEIZE ₱27.32M SHABU AND FIREARM IN ZAMBOANGA, LEYTE', deadline:'Apr 27, 2026' },
-  { id:2, title:'PNP DESTROYS OVER ₱11M WORTH OF MARIJUANA IN WEEKLONG CAR OPERATIONS', deadline:'Apr 27, 2026' },
-  { id:3, title:'SAFER CITIES INITIATIVE SHOWS GAINS AS CASES DROP IN METRO MANILA', deadline:'Apr 27, 2026' },
-];
-const INSTRUCTION = 'Like · Share · Comment #pronir (no space, smallcaps + 3 or more good words)';
-
-/* ══ STATE ══ */
-let tasks = [], checked = {};
-let userName='', userUnit='', userRank='';
-let addOpen = false;
-
-function loadState() {
-  const today = new Date().toDateString();
-  const savedDay = localStorage.getItem('fb_day');
-  try { tasks = JSON.parse(localStorage.getItem('fb_tasks')) || DEFAULT_TASKS.slice(); }
-  catch(e){ tasks = DEFAULT_TASKS.slice(); }
-  if (savedDay !== today) {
-    checked = {};
-    localStorage.setItem('fb_day', today);
-    localStorage.removeItem('fb_checked');
-  } else {
-    try { checked = JSON.parse(localStorage.getItem('fb_checked')) || {}; }
-    catch(e){ checked = {}; }
-  }
+function saveUrl() {
+  const val = document.getElementById('url-input').value.trim();
+  if (!val.startsWith('http')) { toast('Please paste a valid Google Form URL'); return; }
+  localStorage.setItem(KEY, val);
+  loadForm(val);
 }
 
-function saveState() {
-  localStorage.setItem('fb_tasks', JSON.stringify(tasks));
-  localStorage.setItem('fb_checked', JSON.stringify(checked));
+function loadForm(url) {
+  document.getElementById('gform-frame').src = url;
+  document.getElementById('setup-panel').style.display = 'none';
+  document.getElementById('form-panel').classList.add('show');
+  toast('Form loaded ✓');
 }
 
-/* ══ RENDER ══ */
-function render() {
-  const list = document.getElementById('task-list');
-  list.innerHTML = '';
-  tasks.forEach(t => {
-    const done = !!checked[t.id];
-    const el = document.createElement('div');
-    el.className = 'task-card' + (done ? ' checked' : '');
-    el.onclick = () => toggle(t.id);
-    el.innerHTML = `
-      <div class="tcb">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div class="task-body">
-        <div class="task-title">${t.title}</div>
-        <div class="task-meta">
-          <span class="tmeta">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Deadline: ${t.deadline}
-          </span>
-          <span class="tmeta">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            ${INSTRUCTION}
-          </span>
-        </div>
-      </div>
-      <button class="btn btn-ghost btn-sm open-btn" onclick="event.stopPropagation();openHercules()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        Hercules
-      </button>`;
-    list.appendChild(el);
-  });
-  updateProg();
+function changeUrl() {
+  localStorage.removeItem(KEY);
+  document.getElementById('gform-frame').src = '';
+  document.getElementById('form-panel').classList.remove('show');
+  document.getElementById('setup-panel').style.display = '';
+  document.getElementById('url-input').value = '';
+  setTimeout(() => document.getElementById('url-input').focus(), 50);
 }
 
-function updateProg() {
-  const total = tasks.length;
-  const done = tasks.filter(t => checked[t.id]).length;
-  const pct = total ? Math.round(done/total*100) : 0;
-  const all = total > 0 && done === total;
-
-  document.getElementById('pbar-fill').style.width = pct + '%';
-  document.getElementById('prog-count').textContent = `${done} / ${total} completed`;
-  document.getElementById('unlock-btn').disabled = !all;
-
-  const pill = document.getElementById('tb-pill');
-  const pillTxt = document.getElementById('pill-txt');
-  const msg = document.getElementById('unlock-msg');
-
-  if (all) {
-    pill.className = 'tb-pill green';
-    pillTxt.textContent = 'All tasks done ✓';
-    msg.innerHTML = '<strong>All tasks completed!</strong> Click the button to open your submission form.';
-  } else {
-    pill.className = 'tb-pill';
-    pillTxt.textContent = `${done}/${total} done`;
-    msg.innerHTML = `<strong>${total-done} task${total-done!==1?'s':''} remaining</strong> — tick each after completing in Hercules.`;
-  }
-}
-
-/* ══ INTERACTIONS ══ */
-function toggle(id) {
-  checked[id] = !checked[id];
-  saveState(); render();
-  if (checked[id]) toast('Task marked complete ✓');
-}
-
-function openHercules() {
-  window.open(CFG.HERCULES, '_blank', 'noopener');
-}
-
-function toggleAdd() {
-  addOpen = !addOpen;
-  document.getElementById('add-panel').style.display = addOpen ? 'flex' : 'none';
-  if (addOpen) setTimeout(() => document.getElementById('add-input').focus(), 50);
-}
-
-function addTask() {
-  const v = document.getElementById('add-input').value.trim();
-  if (!v) { toast('Please enter a task title'); return; }
-  const id = Date.now();
-  tasks.push({ id, title: v, deadline: new Date().toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'}) });
-  document.getElementById('add-input').value = '';
-  saveState(); render();
-  toast('Task added');
-}
-
-function resetTasks() {
-  if (!confirm('Reset the checklist? This will untick all tasks for today.')) return;
-  tasks = JSON.parse(JSON.stringify(DEFAULT_TASKS));
-  checked = {};
-  saveState(); render();
-  toast('Checklist reset');
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.activeElement.id === 'add-input') addTask();
-});
-
-/* ══ PHASE TRANSITION ══ */
-function goP2() {
-  const ts = document.getElementById('ts');
-  const fill = document.getElementById('ts-fill');
-  ts.classList.add('on');
-  requestAnimationFrame(() => { fill.style.width = '100%'; });
-  setTimeout(() => {
-    document.getElementById('p1').style.display = 'none';
-    document.getElementById('p2').classList.add('show');
-    document.getElementById('st1').className = 'tbs done';
-    document.getElementById('st2').className = 'tbs active';
-    ts.classList.remove('on');
-    fill.style.transition = 'none'; fill.style.width = '0';
-    setTimeout(() => { fill.style.transition = 'width 1.6s ease'; }, 60);
-  }, 2000);
-}
-
-function backToP1() {
-  document.getElementById('p1').style.display = '';
-  document.getElementById('p2').classList.remove('show');
-  document.getElementById('name-gate').style.display = '';
-  document.getElementById('form-wrap').classList.remove('show');
-  document.getElementById('st1').className = 'tbs active';
-  document.getElementById('st2').className = 'tbs';
-  document.getElementById('p2-name').textContent = '—';
-}
-
-/* ══ FORM ══ */
-function proceedToForm() {
-  const name = document.getElementById('g-name').value.trim();
-  if (!name) { toast('Please enter your full name'); return; }
-  userName = name;
-  userUnit = document.getElementById('g-unit').value.trim();
-  userRank = document.getElementById('g-rank').value.trim();
-  document.getElementById('p2-name').textContent = (userRank ? userRank+' ' : '') + userName + (userUnit ? ' · '+userUnit : '');
-  document.getElementById('name-gate').style.display = 'none';
-  document.getElementById('form-wrap').classList.add('show');
-  loadForm();
-}
-
-function loadForm() {
-  const base = CFG.FORM_URL;
-  if (!base) {
-    document.getElementById('no-form').style.display = 'flex';
-    document.getElementById('gform-frame').style.display = 'none';
-    return;
-  }
-  const today = new Date().toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'});
-  const p = new URLSearchParams({
-    [CFG.ENTRY_NAME]: (userRank ? userRank+' ':'')+userName,
-    [CFG.ENTRY_UNIT]: userUnit,
-    [CFG.ENTRY_DATE]: today,
-    usp: 'pp_url',
-  });
-  const frame = document.getElementById('gform-frame');
-  frame.src = base + (base.includes('?')?'&':'?') + p.toString();
-  frame.style.display = 'block';
-  document.getElementById('no-form').style.display = 'none';
-}
-
-function saveAndLoadForm() {
-  const v = document.getElementById('url-input').value.trim();
-  if (!v.startsWith('http')) { toast('Please paste a valid Google Form URL'); return; }
-  CFG.FORM_URL = v;
-  localStorage.setItem('gform_url', v);
-  toast('Form URL saved ✓');
-  loadForm();
-}
-
-/* ══ TOAST ══ */
-function toast(msg, dur=2800) {
+function toast(msg, dur = 2500) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('on');
@@ -537,9 +191,10 @@ function toast(msg, dur=2800) {
   el._t = setTimeout(() => el.classList.remove('on'), dur);
 }
 
-/* ══ INIT ══ */
-loadState();
-render();
+// Auto-load on open if URL already saved
+const saved = localStorage.getItem(KEY);
+if (saved) loadForm(saved);
+else setTimeout(() => document.getElementById('url-input').focus(), 300);
 </script>
 </body>
 </html>
