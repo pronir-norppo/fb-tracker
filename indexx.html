@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FB Compliance Portal — NOrPPO CIRAS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--navy2:#14243A;
+  --blue:#1A6FBF;--blue2:#155FA0;
+  --green:#0F6E56;
+  --border-w:rgba(255,255,255,0.08);
+  --font:'DM Sans',sans-serif;
+}
+html,body{height:100%;font-family:var(--font);background:#F4F6F8;overflow:hidden;font-size:14px}
+
+/* TOPBAR */
+.topbar{
+  height:48px;background:var(--navy2);
+  display:flex;align-items:center;padding:0 18px;gap:12px;flex-shrink:0;
+  position:fixed;top:0;left:0;right:0;z-index:100;
+}
+.tb-icon{width:27px;height:27px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tb-icon svg{width:14px;height:14px;fill:#fff}
+.tb-title{color:#fff;font-size:13px;font-weight:600;letter-spacing:-.2px}
+.tb-sep{width:1px;height:20px;background:var(--border-w);flex-shrink:0}
+
+/* Hercules button in topbar */
+.herc-btn{
+  display:flex;align-items:center;gap:7px;
+  padding:6px 13px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);
+  border-radius:7px;color:#fff;font-size:12px;font-weight:500;font-family:var(--font);
+  cursor:pointer;transition:.15s;text-decoration:none;flex-shrink:0;
+}
+.herc-btn:hover{background:rgba(255,255,255,.18)}
+.herc-btn svg{width:13px;height:13px;flex-shrink:0}
+
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.change-btn{
+  background:none;border:none;color:rgba(255,255,255,.4);
+  font-size:11px;font-family:var(--font);cursor:pointer;text-decoration:underline;padding:0;
+}
+.change-btn:hover{color:rgba(255,255,255,.7)}
+.linked-pill{
+  display:flex;align-items:center;gap:5px;padding:4px 10px;
+  background:rgba(15,110,86,.3);border:1px solid rgba(159,225,203,.2);
+  border-radius:20px;font-size:11px;font-weight:500;color:#9FE1CB;
+}
+.linked-dot{width:6px;height:6px;border-radius:50%;background:#9FE1CB}
+
+/* MAIN */
+.main{padding-top:48px;height:100vh;display:flex;flex-direction:column}
+
+/* Setup screen */
+.setup{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:18px;padding:40px 20px;background:#ffffff;text-align:center;
+}
+.setup-icon{width:58px;height:58px;background:#EBF4FF;border-radius:16px;display:flex;align-items:center;justify-content:center}
+.setup-icon svg{width:28px;height:28px;stroke:var(--blue);fill:none;stroke-width:1.8}
+.setup h2{font-size:18px;font-weight:600;color:#1A1A1A}
+.setup p{font-size:13px;color:#5F5E5A;max-width:340px;line-height:1.7}
+.input-row{display:flex;gap:8px;width:100%;max-width:420px}
+.url-input{
+  flex:1;padding:10px 13px;border:1.5px solid #D3D1C7;border-radius:8px;
+  font-size:13px;font-family:var(--font);outline:none;color:#1A1A1A;
+  background:#fff;transition:border .15s;min-width:0;
+}
+.url-input::placeholder{color:#aaa}
+.url-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,111,191,.1)}
+.save-btn{
+  padding:10px 20px;background:var(--blue);color:#fff;border:none;
+  border-radius:8px;font-size:13px;font-weight:500;font-family:var(--font);
+  cursor:pointer;transition:.15s;flex-shrink:0;
+}
+.save-btn:hover{background:var(--blue2)}
+.setup-note{font-size:11px;color:#888780}
+
+/* Google Form iframe — fills remaining height */
+.form-wrap{flex:1;display:none;flex-direction:column}
+.form-wrap.show{display:flex}
+#gform-frame{flex:1;border:none;width:100%;background:#fff}
+
+/* Toast */
+#toast{
+  position:fixed;bottom:18px;left:50%;
+  transform:translateX(-50%) translateY(14px);
+  background:#1A1A1A;color:#fff;padding:9px 18px;
+  border-radius:8px;font-size:12px;font-weight:500;
+  opacity:0;transition:.25s;z-index:9999;pointer-events:none;white-space:nowrap;
+}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="tb-icon">
+    <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+  </div>
+  <span class="tb-title">FB Compliance Portal — NOrPPO CIRAS</span>
+  <div class="tb-sep"></div>
+
+  <!-- Open Hercules in new tab -->
+  <a class="herc-btn" href="https://pronir-leevic-pis.onhercules.app/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+      <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+    Open Hercules App
+  </a>
+
+  <div class="tb-right" id="tb-right" style="display:none">
+    <div class="linked-pill"><span class="linked-dot"></span>Form linked</div>
+    <button class="change-btn" onclick="changeUrl()">change form URL</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- Setup: paste Google Form URL -->
+  <div class="setup" id="setup">
+    <div class="setup-icon">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    </div>
+    <h2>Link Your Google Form</h2>
+    <p>Paste your compliance Google Form URL below and press Save — the form opens here instantly. One-time setup, saved in this browser.</p>
+    <div class="input-row">
+      <input class="url-input" id="url-input" placeholder="https://docs.google.com/forms/d/e/.../viewform" />
+      <button class="save-btn" onclick="saveUrl()">Save</button>
+    </div>
+    <div class="setup-note">Use <strong>Open Hercules App</strong> above to complete your tasks in a new tab, then submit here.</div>
+  </div>
+
+  <!-- Google Form full screen -->
+  <div class="form-wrap" id="form-wrap">
+    <iframe id="gform-frame" title="Compliance Submission Form" allowfullscreen></iframe>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+const KEY = 'gform_url';
+
+function saveUrl() {
+  const val = document.getElementById('url-input').value.trim();
+  if (!val.startsWith('http')) { toast('Please paste a valid Google Form URL'); return; }
+  localStorage.setItem(KEY, val);
+  loadForm(val);
+}
+
+function loadForm(url) {
+  document.getElementById('gform-frame').src = url;
+  document.getElementById('setup').style.display = 'none';
+  document.getElementById('form-wrap').classList.add('show');
+  document.getElementById('tb-right').style.display = 'flex';
+  toast('Form loaded ✓');
+}
+
+function changeUrl() {
+  localStorage.removeItem(KEY);
+  document.getElementById('gform-frame').src = '';
+  document.getElementById('form-wrap').classList.remove('show');
+  document.getElementById('setup').style.display = '';
+  document.getElementById('tb-right').style.display = 'none';
+  document.getElementById('url-input').value = '';
+  setTimeout(() => document.getElementById('url-input').focus(), 50);
+}
+
+function toast(msg, dur = 2500) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('on');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('on'), dur);
+}
+
+const saved = localStorage.getItem(KEY);
+if (saved) loadForm(saved);
+else setTimeout(() => document.getElementById('url-input').focus(), 300);
+</script>
+</body>
+</html>
